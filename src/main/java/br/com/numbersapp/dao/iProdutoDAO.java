@@ -1,8 +1,6 @@
 package br.com.numbersapp.dao;
 
-import br.com.numbersapp.model.Cliente;
 import br.com.numbersapp.model.Produto;
-
 import java.util.List;
 import java.util.Optional;
 

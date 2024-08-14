@@ -62,19 +62,19 @@ public class ClienteDAO implements iClienteDAO{
 
     @Override
     public Optional<Cliente> findById(int id) {
-        String sql = "SELECT * FROM colaborador where id = ?";
+        String sql = "SELECT * FROM cliente where id = ?";
         Cliente cliente = null;
         try (Connection connection = BancoDeDados.getConnection()) {
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setInt(1, id);
-            ResultSet rsColab = preparedStatement.executeQuery();
-            while (rsColab.next()) {
+            ResultSet rsCliente = preparedStatement.executeQuery();
+            while (rsCliente.next()) {
                 cliente = new Cliente();
-                cliente.setId(rsColab.getInt("id"));
-                cliente.setNome(rsColab.getString("nome"));
-                cliente.setSobrenome(rsColab.getString("sobrenome"));
-                cliente.setTel(rsColab.getString("tel"));
-                cliente.setDataintegracao(rsColab.getDate("dataintegracao").toLocalDate());
+                cliente.setId(rsCliente.getInt("id"));
+                cliente.setNome(rsCliente.getString("nome"));
+                cliente.setSobrenome(rsCliente.getString("sobrenome"));
+                cliente.setTel(rsCliente.getString("tel"));
+                cliente.setDataintegracao(rsCliente.getDate("dataintegracao").toLocalDate());
             }
         }
         catch (SQLException ex){
@@ -85,7 +85,7 @@ public class ClienteDAO implements iClienteDAO{
 
     @Override
     public Optional<Cliente> findByTel(String tel) {
-        String sql = "SELECT * FROM colaborador where tel = ?";
+        String sql = "SELECT * FROM cliente where tel = ?";
         Cliente cliente = null;
         try (Connection connection = BancoDeDados.getConnection()) {
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
