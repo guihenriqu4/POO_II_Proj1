@@ -10,4 +10,8 @@ public class Cliente extends Pessoa{
     public Cliente() {
         super();
     }
+
+    public void printCliente() {
+        super.printPessoa();
+    }
 }

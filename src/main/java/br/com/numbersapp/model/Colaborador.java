@@ -34,7 +34,7 @@ public class Colaborador extends Pessoa{
         this.funcao = funcao;
     }
 
-    public void printPessoa() {
+    public void printColaborador() {
         super.printPessoa();
         System.out.println(" Email: " + this.email);
         System.out.println(" Função: " + this.funcao);
