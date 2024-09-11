@@ -16,7 +16,7 @@
 
 ---
 
-# Configuração do Banco de Dados em Ubuntu
+# Configuração do Banco de Dados(DB) em Ubuntu
 
 ---
 
@@ -26,47 +26,76 @@ Leva-se em consideração que o PostgreSQL tenha sido instalado pela dependênci
 
 ## Criação do Banco de Dados
 
-Antes de qualquer ação, baixe o arquivo .sql presente neste GitHub e armazene em um local cujo endereço possa ser facilmente lembrado. Após essa instalação, inicie o terminal do Ubuntu e acesse o PostgreSQL através do seguinte comando:
+Antes de qualquer ação, baixe o arquivo de script presente neste GitHub e armazene em um local cujo endereço possa ser facilmente lembrado.
+Agora acesse o usuário postgres:
 
 ```shell
-sudo -i -u postgres
+sudo su - postgres
 ```
-Em seguida, acesse a estação de comandos com o seguinte comando:
+
+Em seguida, acesse o prompt do psql:
 
 ```shell
 psql
 ```
 
-Finalmente, crie um banco de dados:
+Ademais, crie um usuário com mesmo nome e senha de sua máquina com os seguintes comandos:
 
 ```shell
-CREATE DATABASE nome_do_banco;
-```
-
-Neste momento, é necessário criar um usuário e garantir todos os direitos deste banco de dados a ele.
-
-```shell
-CREATE USER nome_do_usuario WITH PASSWORD 'senha';
+CREATE USER nome_do_usuario SUPERUSER INHERIT CREATEDB CREATEROLE;
 ```
 
 ```shell
-GRANT ALL PRIVILEGES ON DATABASE nome_do_banco TO nome_do_usuario;
+ALTER USER nome_do_usuario PASSWORD 'senha';
 ```
 
-Com esta parte pronta, saia da estação de comando usando \q e importe o banco de dados com a seguinte sintaxe sql:
+Com essa etapa concluída, crie um DB (O nome do DB não precisa ser igual ao do arquivo de script, entretanto, deve ser IDÊNTICO ao nome do DB que originou o arquivo.sql). Isso pode ser feito de duas maneiras:
 
+ - Via terminal Linux
 ```shell
-psql -d nome_do_banco -U nome_do_usuario -f caminho/para/o/arquivo.sql
+createdb "nome_do_banco"
+```
+
+ - Via prompt psql
+```shell
+sudo su - postgres
+psql
+CREATE DATABASE "nome_do_banco";
+```
+
+Com o banco de dados criado, realize o restore de acordo com o tipo de arquivo do seu script.
+
+ - .tar
+```shell
+pg_restore -U "nome_do_usuario" -W -d "nome_do_banco_criado" < "caminho/do/arquivo/nome_do_arquivo.tar"
+```
+
+ - .sql
+```shell
+psql -U "nome_do_usuario" -W -d "nome_do_banco_criado" < "caminho/do/arquivo/nome_do_arquivo.sql"
 ```
 
 Para verificar se os dados foram importados corretamente, acesse o banco de dados e liste as tabelas:
 
 ```shell
-psql -d nome_do_banco -U nome_do_usuario
+sudo su - postgres
+psql
+\c "nome_do_banco"
+\dt
 ```
 
+## A saber
+
+Para se criar o arquivo de script do DB é necessário realizar um dump. Há duas formas de realizar esse processo (a diferença entre eles é o tipo de arquivo gerado, que impactará no momento de restore):
+
+ - .tar
 ```shell
-\dt
+pg_dump -U "nome_do_usuario" -W -F t "nome_do_banco" > "caminho/arquivo.tar"
+```
+
+ - .sql
+```shell
+pg_dump -U "nome_do_usuario" -W -F p "nome_do_banco" > "caminho/arquivo.sql"
 ```
 
 ---
@@ -101,4 +130,4 @@ psql -d nome_do_banco -U nome_do_usuario
 
   ![intelliJ4](img/intelliJ_4.png)
 
-- encerrado esse processo, basta prosseguir com seus desejos no código. Boa sorte!
+- Encerrado esse processo, basta prosseguir com seus desejos no código. Boa sorte!
