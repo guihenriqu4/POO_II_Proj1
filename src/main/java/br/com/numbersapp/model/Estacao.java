@@ -4,6 +4,19 @@ public class Estacao {
     private int id;
     private String nome;
 
+    public Estacao (int id, String nome) {
+        this.id = id;
+        this.nome = nome;
+    }
+
+    public Estacao (String nome) {
+        this.nome = nome;
+    }
+
+    public Estacao () {
+        this.nome = null;
+    }
+
     public void setId (int id){
         this.id = id;
     }

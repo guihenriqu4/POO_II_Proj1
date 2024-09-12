@@ -7,8 +7,8 @@ import java.util.Optional;
 public interface iProdutoDAO {
     Produto save(Produto produto);
     Produto update(Produto produto);
-    void deleteProduto(Long id);
-    Optional<Produto> findById(Long id);
+    void deleteProduto(int id);
+    Optional<Produto> findById(int id);
     Optional<Produto> findByNome(String nome);
     List<Produto> findAll();
 }

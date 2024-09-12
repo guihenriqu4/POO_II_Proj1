@@ -7,9 +7,19 @@ public class Pessoa {
     private String nome;
     private String sobrenome;
     private String tel;
+
+    public String getSenha() {
+        return senha;
+    }
+
+    public void setSenha(String senha) {
+        this.senha = senha;
+    }
+
+    private String senha;
     private LocalDate dataintegracao;
 
-    public Pessoa(int id, String nome, String sobrenome, String tel, LocalDate dataintegracao) {
+    public Pessoa(int id, String nome, String sobrenome, String tel, String senha, LocalDate dataintegracao) {
         this.id = id;
         this.nome = nome;
         this.sobrenome = sobrenome;
@@ -17,8 +27,7 @@ public class Pessoa {
         this.dataintegracao = dataintegracao;
     }
 
-    public Pessoa(String nome, String sobrenome, String tel, LocalDate dataintegracao) {
-        this.id = id;
+    public Pessoa(String nome, String sobrenome, String tel, String senha, LocalDate dataintegracao) {
         this.nome = nome;
         this.sobrenome = sobrenome;
         this.tel = tel;
@@ -26,7 +35,6 @@ public class Pessoa {
     }
 
     public Pessoa() {
-        this.id = Integer.parseInt(null);
         this.nome = null;
         this.sobrenome = null;
         this.tel = null;

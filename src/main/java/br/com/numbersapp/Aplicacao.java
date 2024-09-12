@@ -10,15 +10,15 @@ import java.util.Optional;
 
 public class Aplicacao {
     public static void main(String[] args) {
-        // Teste de save -- INSERT
-//        ClienteDAO clienteDAO = new ClienteDAO();
-//        Cliente cliente = new Cliente();
-//        cliente.setNome("Genoveva");
-//        cliente.setSobrenome("Lacerda");
-//        cliente.setTel("62988772255");
-//        cliente.setDataintegracao(java.time.LocalDate.now());
-//        Cliente inserida =  clienteDAO.save(cliente);
-//        inserida.printPessoa();
+//         Teste de save -- INSERT
+        ClienteDAO clienteDAO = new ClienteDAO();
+        Cliente cliente = new Cliente();
+        cliente.setNome("Genoveva");
+        cliente.setSobrenome("Lacerda");
+        cliente.setTel("62988772255");
+        cliente.setDataintegracao(java.time.LocalDate.now());
+        Cliente inserida =  clienteDAO.save(cliente);
+        inserida.printPessoa();
 
         // Teste de update -- UPDATE
 //        ClienteDAO clienteDAO = new ClienteDAO();

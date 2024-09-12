@@ -10,12 +10,12 @@ public class ClienteDAO implements iClienteDAO{
     @Override
     public Cliente save(Cliente cliente) {
         try(Connection connection = BancoDeDados.getConnection()){
-            String sql = "INSERT INTO cliente (nome, sobrenome, tel, dataintegracao) values (?, ?, ?, ?)";
+            String sql = "INSERT INTO cliente (nome, sobrenome, senha, dataIntegracao) values (?, ?, ?, ?)";
             assert connection != null;
             PreparedStatement psCliente = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             psCliente.setString(1, cliente.getNome());
             psCliente.setString(2, cliente.getSobrenome());
-            psCliente.setString(3, cliente.getTel());
+            psCliente.setString(3, cliente.getSenha());
             psCliente.setDate(4, java.sql.Date.valueOf(cliente.getDataintegracao()));
             psCliente.executeUpdate();
 
@@ -23,6 +23,12 @@ public class ClienteDAO implements iClienteDAO{
             if (rsColab.next()) {
                 cliente.setId(rsColab.getInt("id"));
             }
+
+            sql = "INSERT INTO tel_cliente (id, numero) values (?, ?)";
+            psCliente = connection.prepareStatement(sql);
+            psCliente.setInt(1, cliente.getId());
+            psCliente.setString(2, cliente.getTel());
+            psCliente.executeUpdate();
         }catch (SQLException e){
             throw new RuntimeException(e);
         }
@@ -32,14 +38,20 @@ public class ClienteDAO implements iClienteDAO{
     @Override
     public Cliente update(Cliente cliente) {
         try(Connection connection = BancoDeDados.getConnection()){
-            String sql = "UPTDATE cliente SET nome = ?, sobrenome = ?, tel = ?, dataintegracao = ? WHERE id = ?";
+            String sql = "UPTDATE cliente SET nome = ?, sobrenome = ?, senha = ?, dataIntegracao = ? WHERE id = ?";
             assert connection != null;
             PreparedStatement psCliente = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             psCliente.setString(1, cliente.getNome());
             psCliente.setString(2, cliente.getSobrenome());
-            psCliente.setString(3, cliente.getTel());
+            psCliente.setString(3, cliente.getSenha());
             psCliente.setDate(4, java.sql.Date.valueOf(cliente.getDataintegracao()));
             psCliente.setInt(5, cliente.getId());
+            psCliente.executeUpdate();
+
+            sql = "UPTDATE tel_cliente SET  tel = ? WHERE id = ?";
+            psCliente = connection.prepareStatement(sql);
+            psCliente.setString(1, cliente.getTel());
+            psCliente.setInt(2, cliente.getId());
             psCliente.executeUpdate();
         }catch (SQLException e){
             throw new RuntimeException(e);
@@ -53,6 +65,11 @@ public class ClienteDAO implements iClienteDAO{
             String sql = "DELETE FROM cliente WHERE id = ?";
             assert connection != null;
             PreparedStatement psCliente = connection.prepareStatement(sql);
+            psCliente.setInt(1, id);
+            psCliente.executeUpdate();
+
+            sql = "DELETE FROM tel_cliente WHERE id = ?";
+            psCliente = connection.prepareStatement(sql);
             psCliente.setInt(1, id);
             psCliente.executeUpdate();
         }catch (SQLException e) {
@@ -73,8 +90,15 @@ public class ClienteDAO implements iClienteDAO{
                 cliente.setId(rsCliente.getInt("id"));
                 cliente.setNome(rsCliente.getString("nome"));
                 cliente.setSobrenome(rsCliente.getString("sobrenome"));
-                cliente.setTel(rsCliente.getString("tel"));
+                cliente.setSenha(rsCliente.getString("senha"));
                 cliente.setDataintegracao(rsCliente.getDate("dataintegracao").toLocalDate());
+            }
+            sql = "SELECT numero FROM tel_cliente where id = ?";
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(1, id);
+            ResultSet rsTel = preparedStatement.executeQuery();
+            while (rsTel.next()) {
+                cliente.setTel(rsTel.getString("numero"));
             }
         }
         catch (SQLException ex){

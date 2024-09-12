@@ -22,7 +22,7 @@ public class ProdutoDAO implements iProdutoDAO{
 
             ResultSet rsProd = psProd.getGeneratedKeys();
             if (rsProd.next()) {
-                produto.setId(rsProd.getLong("id"));
+                produto.setId(rsProd.getInt("id"));
             }
         }catch (SQLException e){
             throw new RuntimeException(e);
@@ -49,12 +49,12 @@ public class ProdutoDAO implements iProdutoDAO{
     }
 
     @Override
-    public void deleteProduto(Long id) {
+    public void deleteProduto(int id) {
         try(Connection connection = BancoDeDados.getConnection()) {
             String sql = "DELETE FROM produto WHERE id = ?";
             assert connection != null;
             PreparedStatement psProd = connection.prepareStatement(sql);
-            psProd.setLong(1, id);
+            psProd.setInt(1, id);
             psProd.executeUpdate();
         }catch (SQLException e) {
             throw new RuntimeException(e);
@@ -62,16 +62,16 @@ public class ProdutoDAO implements iProdutoDAO{
     }
 
     @Override
-    public Optional<Produto> findById(Long id) {
+    public Optional<Produto> findById(int id) {
         String sql = "SELECT * FROM produto where id = ?";
         Produto prod = null;
         try (Connection connection = BancoDeDados.getConnection()) {
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setLong(1, id);
+            preparedStatement.setInt(1, id);
             ResultSet rsColab = preparedStatement.executeQuery();
             while (rsColab.next()) {
                 prod = new Produto();
-                prod.setId(rsColab.getLong("id"));
+                prod.setId(rsColab.getInt("id"));
                 prod.setNome(rsColab.getString("nome"));
                 prod.setMarca(rsColab.getString("marca"));
                 prod.setDescricao(rsColab.getString("descricao"));
@@ -94,7 +94,7 @@ public class ProdutoDAO implements iProdutoDAO{
             ResultSet rsProd = preparedStatement.executeQuery();
             while (rsProd.next()) {
                 prod = new Produto();
-                prod.setId(rsProd.getLong("id"));
+                prod.setId(rsProd.getInt("id"));
                 prod.setNome(rsProd.getString("nome"));
                 prod.setMarca(rsProd.getString("marca"));
                 prod.setDescricao(rsProd.getString("descricao"));
@@ -117,7 +117,7 @@ public class ProdutoDAO implements iProdutoDAO{
             ResultSet rsColab = preparedStatement.executeQuery();
             while (rsColab.next()) {
                 Produto prod = new Produto();
-                prod.setId(rsColab.getLong("id"));
+                prod.setId(rsColab.getInt("id"));
                 prod.setNome(rsColab.getString("nome"));
                 prod.setMarca(rsColab.getString("marca"));
                 prod.setDescricao(rsColab.getString("descricao"));

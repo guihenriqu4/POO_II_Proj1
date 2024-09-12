@@ -1,13 +1,13 @@
 package br.com.numbersapp.model;
 
 public class Produto {
-    private Long id;
+    private int id;
     private String nome;
     private String marca;
     private String descricao;
     private double quantidade;
 
-    public Produto (Long id, String nome, String marca, String descricao, double quantidade) {
+    public Produto (int id, String nome, String marca, String descricao, double quantidade) {
         this.id = id;
         this.nome = nome;
         this.marca = marca;
@@ -16,7 +16,6 @@ public class Produto {
     }
 
     public Produto (String nome, String marca, String descricao, double quantidade) {
-        this.id = null;
         this.nome = nome;
         this.marca = marca;
         this.descricao = descricao;
@@ -24,18 +23,17 @@ public class Produto {
     }
 
     public Produto () {
-        this.id = null;
         this.nome = null;
         this.marca = null;
         this.descricao = null;
         this.quantidade = Double.parseDouble(null);
     }
 
-    public void setId(Long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
-    public Long getId() {
+    public int getId() {
         return this.id;
     }
 

@@ -4,18 +4,21 @@ import java.time.LocalDate;
 
 public class Colaborador extends Pessoa{
     private String email;
-    private String funcao;
-
-    public Colaborador(String nome, String sobrenome, String tel, String email, String funcao, LocalDate dataintegracao) {
-        super(nome, sobrenome, tel, dataintegracao);
+    private String cargo;
+    public Colaborador(int id, String nome, String sobrenome, String tel, String email, String senha, String cargo, LocalDate dataintegracao) {
+        super(id, nome, sobrenome, tel, senha, dataintegracao);
         this.email = email;
-        this.funcao = funcao;
+        this.cargo = cargo;
     }
-
+    public Colaborador(String nome, String sobrenome, String tel, String email, String senha, String funcao, LocalDate dataintegracao) {
+        super(nome, sobrenome, tel, senha, dataintegracao);
+        this.email = email;
+        this.cargo = funcao;
+    }
     public Colaborador() {
         super();
         this.email = null;
-        this.funcao = null;
+        this.cargo = null;
     }
 
     public String getEmail() {
@@ -26,17 +29,17 @@ public class Colaborador extends Pessoa{
         this.email = email;
     }
 
-    public String getFuncao() {
-        return funcao;
+    public String getCargo() {
+        return cargo;
     }
 
-    public void setFuncao(String funcao) {
-        this.funcao = funcao;
+    public void setCargo(String cargo) {
+        this.cargo = cargo;
     }
 
     public void printColaborador() {
         super.printPessoa();
         System.out.println(" Email: " + this.email);
-        System.out.println(" Função: " + this.funcao);
+        System.out.println(" Cargo: " + this.cargo);
     }
 }

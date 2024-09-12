@@ -9,7 +9,7 @@ public class BancoDeDados {
 
 	public static Connection getConnection(){
 		try {
-			return DriverManager.getConnection("jdbc:postgresql://localhost/numbersapp", "", "");
+			return DriverManager.getConnection("jdbc:postgresql://localhost/'nome_do_banco'", "user", "password");
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}
