@@ -5,6 +5,7 @@ import java.time.LocalDate;
 public class Colaborador extends Pessoa{
     private String email;
     private String cargo;
+
     public Colaborador(int id, String nome, String sobrenome, String tel, String email, String senha, String cargo, LocalDate dataintegracao) {
         super(id, nome, sobrenome, tel, senha, dataintegracao);
         this.email = email;

@@ -4,6 +4,16 @@ public class Horario {
     private String dat;
     private String hora;
 
+    public Horario (String dat, String hora) {
+        this.dat = dat;
+        this.hora = hora;
+    }
+
+    public Horario() {
+        this.dat = null;
+        this.hora = null;
+    }
+
     public void setDat(String dat) {
         this.dat = dat;
     }

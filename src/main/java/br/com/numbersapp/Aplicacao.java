@@ -2,8 +2,10 @@ package br.com.numbersapp;
 
 import br.com.numbersapp.dao.ClienteDAO;
 import br.com.numbersapp.dao.ColaboradorDAO;
+import br.com.numbersapp.dao.ProdutoDAO;
 import br.com.numbersapp.model.Cliente;
 import br.com.numbersapp.model.Colaborador;
+import br.com.numbersapp.model.Produto;
 
 import java.util.List;
 import java.util.Optional;
@@ -11,14 +13,24 @@ import java.util.Optional;
 public class Aplicacao {
     public static void main(String[] args) {
 //         Teste de save -- INSERT
-        ClienteDAO clienteDAO = new ClienteDAO();
-        Cliente cliente = new Cliente();
-        cliente.setNome("Genoveva");
-        cliente.setSobrenome("Lacerda");
-        cliente.setTel("62988772255");
-        cliente.setDataintegracao(java.time.LocalDate.now());
-        Cliente inserida =  clienteDAO.save(cliente);
-        inserida.printPessoa();
+//        ClienteDAO clienteDAO = new ClienteDAO();
+//        Cliente cliente = new Cliente();
+//        cliente.setNome("Genoveva");
+//        cliente.setSobrenome("Lacerda");
+//        cliente.setTel("62988772255");
+//        cliente.setDataintegracao(java.time.LocalDate.now());
+//        Cliente inserida =  clienteDAO.save(cliente);
+//        inserida.printPessoa();
+
+//          Teste de save -- INSERT
+        ProdutoDAO produtoDAO = new ProdutoDAO();
+        Produto produto = new Produto();
+        produto.setNome("Côco Bambu");
+        produto.setMarca("Now United");
+        produto.setDescricao("Esmate branco fosco");
+        produto.setQuantidade(3);
+        Produto inserida =  produtoDAO.save(produto);
+        inserida.printProduto();
 
         // Teste de update -- UPDATE
 //        ClienteDAO clienteDAO = new ClienteDAO();

@@ -35,7 +35,7 @@ public class ProdutoDAO implements iProdutoDAO{
         try(Connection connection = BancoDeDados.getConnection()){
             String sql = "UPTDATE produto SET nome = ?, marca = ?, descricao = ?, quantidade = ? WHERE id = ?";
             assert connection != null;
-            PreparedStatement psProd = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            PreparedStatement psProd = connection.prepareStatement(sql);
             psProd.setString(1, produto.getNome());
             psProd.setString(2, produto.getMarca());
             psProd.setString(3, produto.getDescricao());

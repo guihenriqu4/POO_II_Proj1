@@ -7,15 +7,6 @@ public class Pessoa {
     private String nome;
     private String sobrenome;
     private String tel;
-
-    public String getSenha() {
-        return senha;
-    }
-
-    public void setSenha(String senha) {
-        this.senha = senha;
-    }
-
     private String senha;
     private LocalDate dataintegracao;
 
@@ -71,6 +62,14 @@ public class Pessoa {
 
     public void setTel(String tel) {
         this.tel = tel;
+    }
+
+    public String getSenha() {
+        return senha;
+    }
+
+    public void setSenha(String senha) {
+        this.senha = senha;
     }
 
     public LocalDate getDataintegracao() {
