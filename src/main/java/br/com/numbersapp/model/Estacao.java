@@ -34,7 +34,7 @@ public class Estacao {
     }
 
     public void printEstacao(){
-        System.out.print("ID: " + this.id);
-        System.out.print(" Nome: " + this.nome);
+        System.out.println(" ID: " + this.id);
+        System.out.println(" Nome: " + this.nome);
     }
 }

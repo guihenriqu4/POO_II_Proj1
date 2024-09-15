@@ -6,10 +6,12 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Consumer;
 
 public class ProdutoDAO implements iProdutoDAO{
+
     @Override
-    public Produto save(Produto produto) {
+    public Produto save(Produto produto) { //FUNCIONANDO
         try(Connection connection = BancoDeDados.getConnection()){
             String sql = "INSERT INTO produto (nome, marca, descricao, quantidade) values (?, ?, ?, ?)";
             assert connection != null;
@@ -22,7 +24,7 @@ public class ProdutoDAO implements iProdutoDAO{
 
             ResultSet rsProd = psProd.getGeneratedKeys();
             if (rsProd.next()) {
-                produto.setId(rsProd.getInt("id"));
+                produto.setId(rsProd.getInt("id_produto"));
             }
         }catch (SQLException e){
             throw new RuntimeException(e);
@@ -31,9 +33,9 @@ public class ProdutoDAO implements iProdutoDAO{
     }
 
     @Override
-    public Produto update(Produto produto) {
+    public Produto update(Produto produto) { //FUNCIONANDO
         try(Connection connection = BancoDeDados.getConnection()){
-            String sql = "UPTDATE produto SET nome = ?, marca = ?, descricao = ?, quantidade = ? WHERE id = ?";
+            String sql = "UPDATE produto SET nome = ?, marca = ?, descricao = ?, quantidade = ? WHERE id_produto = ?";
             assert connection != null;
             PreparedStatement psProd = connection.prepareStatement(sql);
             psProd.setString(1, produto.getNome());
@@ -49,9 +51,9 @@ public class ProdutoDAO implements iProdutoDAO{
     }
 
     @Override
-    public void deleteProduto(int id) {
+    public void deleteProduto(int id) { //FUNCIONANDO
         try(Connection connection = BancoDeDados.getConnection()) {
-            String sql = "DELETE FROM produto WHERE id = ?";
+            String sql = "DELETE FROM produto WHERE id_produto = ?";
             assert connection != null;
             PreparedStatement psProd = connection.prepareStatement(sql);
             psProd.setInt(1, id);
@@ -62,8 +64,8 @@ public class ProdutoDAO implements iProdutoDAO{
     }
 
     @Override
-    public Optional<Produto> findById(int id) {
-        String sql = "SELECT * FROM produto where id = ?";
+    public Optional<Produto> findById(int id) { //FUNCIONANDO
+        String sql = "SELECT * FROM produto where id_produto = ?";
         Produto prod = null;
         try (Connection connection = BancoDeDados.getConnection()) {
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
@@ -71,7 +73,7 @@ public class ProdutoDAO implements iProdutoDAO{
             ResultSet rsColab = preparedStatement.executeQuery();
             while (rsColab.next()) {
                 prod = new Produto();
-                prod.setId(rsColab.getInt("id"));
+                prod.setId(rsColab.getInt("id_produto"));
                 prod.setNome(rsColab.getString("nome"));
                 prod.setMarca(rsColab.getString("marca"));
                 prod.setDescricao(rsColab.getString("descricao"));
@@ -85,8 +87,8 @@ public class ProdutoDAO implements iProdutoDAO{
     }
 
     @Override
-    public Optional<Produto> findByNome(String nome) {
-        String sql = "SELECT * FROM produto where nome = ?";
+    public Optional<Produto> findByNome(String nome) { //FUNCIONANDO
+        String sql = "SELECT * FROM produto WHERE nome = ?";
         Produto prod = null;
         try (Connection connection = BancoDeDados.getConnection()) {
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
@@ -94,7 +96,7 @@ public class ProdutoDAO implements iProdutoDAO{
             ResultSet rsProd = preparedStatement.executeQuery();
             while (rsProd.next()) {
                 prod = new Produto();
-                prod.setId(rsProd.getInt("id"));
+                prod.setId(rsProd.getInt("id_produto"));
                 prod.setNome(rsProd.getString("nome"));
                 prod.setMarca(rsProd.getString("marca"));
                 prod.setDescricao(rsProd.getString("descricao"));
@@ -107,8 +109,32 @@ public class ProdutoDAO implements iProdutoDAO{
         return Optional.ofNullable(prod);
     }
 
+    public List<Produto> findByName(String nome) { //FUNCIONANDO
+        List<Produto> produtos = new ArrayList<>();
+        String sql = "SELECT * FROM produto WHERE nome = ?";
+        try (Connection connection = BancoDeDados.getConnection()) {
+            assert connection != null;
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, nome);
+            ResultSet rsColab = preparedStatement.executeQuery();
+            while (rsColab.next()) {
+                Produto prod = new Produto();
+                prod.setId(rsColab.getInt("id_produto"));
+                prod.setNome(rsColab.getString("nome"));
+                prod.setMarca(rsColab.getString("marca"));
+                prod.setDescricao(rsColab.getString("descricao"));
+                prod.setQuantidade(Double.parseDouble(rsColab.getString("quantidade")));
+                produtos.add(prod);
+            }
+        }
+        catch (SQLException ex){
+            throw new RuntimeException(ex);
+        }
+        return produtos;
+    }
+
     @Override
-    public List<Produto> findAll() {
+    public List<Produto> findAll() { //FUNCIONANDO
         List<Produto> produtos = new ArrayList<>();
         String sql = "SELECT * FROM produto";
         try (Connection connection = BancoDeDados.getConnection()) {
@@ -117,7 +143,7 @@ public class ProdutoDAO implements iProdutoDAO{
             ResultSet rsColab = preparedStatement.executeQuery();
             while (rsColab.next()) {
                 Produto prod = new Produto();
-                prod.setId(rsColab.getInt("id"));
+                prod.setId(rsColab.getInt("id_produto"));
                 prod.setNome(rsColab.getString("nome"));
                 prod.setMarca(rsColab.getString("marca"));
                 prod.setDescricao(rsColab.getString("descricao"));

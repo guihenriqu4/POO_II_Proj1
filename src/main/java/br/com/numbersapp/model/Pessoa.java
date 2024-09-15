@@ -81,10 +81,10 @@ public class Pessoa {
     }
 
     public void printPessoa() {
-        System.out.print("ID: " + this.id);
-        System.out.print(" Nome: " + this.nome);
-        System.out.print(" Sobrenome: " + this.sobrenome);
-        System.out.print(" Telefone: " + this.tel);
-        System.out.print(" Data de Integração: " + this.dataintegracao);
+        System.out.println(" ID: " + this.id);
+        System.out.println(" Nome: " + this.nome);
+        System.out.println(" Sobrenome: " + this.sobrenome);
+        System.out.println(" Telefone: " + this.tel);
+        System.out.println(" Data de Integração: " + this.dataintegracao);
     }
 }

@@ -15,18 +15,16 @@ public class Produto {
         this.quantidade = quantidade;
     }
 
-    public Produto (String nome, String marca, String descricao, double quantidade) {
+    public Produto (String nome, String marca, String descricao) {
         this.nome = nome;
         this.marca = marca;
         this.descricao = descricao;
-        this.quantidade = quantidade;
     }
 
     public Produto () {
         this.nome = null;
         this.marca = null;
         this.descricao = null;
-        this.quantidade = Double.parseDouble(null);
     }
 
     public void setId(int id) {
@@ -61,12 +59,12 @@ public class Produto {
         return this.descricao;
     }
 
-    public void setQuantidade(double quantidade) {
-        this.quantidade = quantidade;
+    public double getQuantidade() {
+        return quantidade;
     }
 
-    public double getQuantidade() {
-        return this.quantidade;
+    public void setQuantidade(double quantidade) {
+        this.quantidade = quantidade;
     }
 
     public void printProduto() {
