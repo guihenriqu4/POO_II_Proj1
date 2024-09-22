@@ -14,8 +14,8 @@ public class HorarioDAO implements iHorarioDAO{
             String sql = "INSERT INTO horario (dat, hora) values (?, ?)";
             assert connection != null;
             PreparedStatement psHorario = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            psHorario.setDate(1, horario.getDat());
-            psHorario.setTime(2, horario.getHora());
+//            psHorario.setDate(1, horario.getDat());
+//            psHorario.setTime(2, horario.getHora());
             psHorario.executeUpdate();
 
         }catch (SQLException e){
@@ -30,8 +30,8 @@ public class HorarioDAO implements iHorarioDAO{
             String sql = "UPTDATE horario SET dat = ?, hora = ? WHERE dat = ? AND hora = ?";
             assert connection != null;
             PreparedStatement psHorario = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            psHorario.setDate(1, horario.getDat());
-            psHorario.setTime(2, horario.getHora());
+//            psHorario.setDate(1, horario.getDat());
+//            psHorario.setTime(2, horario.getHora());
             psHorario.executeUpdate();
         }catch (SQLException e){
             throw new RuntimeException(e);

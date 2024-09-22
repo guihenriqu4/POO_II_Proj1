@@ -111,25 +111,19 @@ public class ClienteDAO implements iClienteDAO{
     }
 
     @Override
-    public Optional<Cliente> findByTel(String tel) { //NÃO TÁ FUNCIONANDO (NÃO ACHEI SOLUÇÃO)
+    public Optional<Cliente> findByTel(String tel) { //FUNCIONANDO
         Cliente cliente = null;
         try (Connection connection = BancoDeDados.getConnection()) {
-            String sql = "SELECT * FROM tel_cliente where numero = ?";
-            assert connection != null;
+            String sql = "SELECT c.*, t.* FROM cliente c, tel_cliente t WHERE c.id_cliente =  t.id_cliente AND numero = ?;";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, tel);
-            ResultSet rsTelCliente = preparedStatement.executeQuery();
-            int id = rsTelCliente.getInt("id_cliente");
-
-            sql = "SELECT c.*, t.id_cliente, t.numero FROM cliente c, tel_cliente t WHERE id_cliente = ?;";
-            preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setInt(1, id);
             ResultSet rsCliente = preparedStatement.executeQuery();
             while (rsCliente.next()) {
                 cliente = new Cliente();
-                cliente.setId(rsCliente.getInt("id"));
+                cliente.setId(rsCliente.getInt("id_cliente"));
                 cliente.setNome(rsCliente.getString("nome"));
                 cliente.setSobrenome(rsCliente.getString("sobrenome"));
+                cliente.setTel(rsCliente.getString("numero"));
                 cliente.setSenha(rsCliente.getString("senha"));
                 cliente.setDataintegracao(rsCliente.getDate("dataintegracao").toLocalDate());
             }
@@ -140,9 +134,9 @@ public class ClienteDAO implements iClienteDAO{
         return Optional.ofNullable(cliente);
     }
 
-    public List<Cliente> findByName(String nome) { //FUNCIONANDO COM DEFEITOS (LISTANDO DUAS VEZES)
+    public List<Cliente> findByName(String nome) { //FUNCIONANDO
         List<Cliente> clientes = new ArrayList<>();
-        String sql = "SELECT c.*, t.numero FROM cliente c, tel_cliente t WHERE nome = ?";
+        String sql = "SELECT c.*, t.numero FROM cliente c, tel_cliente t WHERE c.id_cliente = t.id_cliente AND nome = ?";
         try (Connection connection = BancoDeDados.getConnection()) {
             assert connection != null;
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
@@ -166,9 +160,9 @@ public class ClienteDAO implements iClienteDAO{
     }
 
     @Override
-    public List<Cliente> findAll() { //FUNCIONANDO COM DEFEITO (LISTANDO DUAS VEZES)
+    public List<Cliente> findAll() { //FUNCIONANDO
         List<Cliente> clientes = new ArrayList<>();
-        String sql = "SELECT c.*, t.numero FROM cliente c, tel_cliente t;";
+        String sql = "SELECT c.*, t.numero FROM cliente c, tel_cliente t WHERE c.id_cliente = t.id_cliente";
         try (Connection connection = BancoDeDados.getConnection()) {
             assert connection != null;
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
