@@ -84,7 +84,7 @@ public class ColaboradorDAO implements iColaboradorDAO {
     public Optional<Colaborador> findById(int id) { //FUNCIONANDO
         Colaborador colab = null;
         try (Connection connection = BancoDeDados.getConnection()) {
-            String sql = "SELECT * FROM colaborador WHERE id_colaborador = ?";
+            String sql = "SELECT * FROM colaborador c WHERE id_colaborador = ?";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setInt(1, id);
             ResultSet rsColab = preparedStatement.executeQuery();
@@ -97,6 +97,7 @@ public class ColaboradorDAO implements iColaboradorDAO {
                 colab.setCargo(rsColab.getString("cargo"));
                 colab.setDataintegracao(rsColab.getDate("dataintegracao").toLocalDate());
             }
+
             sql = "SELECT numero FROM tel_colaborador where id_colaborador = ?";
             preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setInt(1, id);
@@ -111,8 +112,8 @@ public class ColaboradorDAO implements iColaboradorDAO {
         return Optional.ofNullable(colab);
     }
     @Override
-    public Optional<Colaborador> findByTel(String tel) {
-        String sql = "SELECT * FROM colaborador where tel = ?";
+    public Optional<Colaborador> findByTel(String tel) { //FUNCIONANDO
+        String sql = "SELECT c.*, t.* FROM colaborador c, tel_colaborador t where c.id_colaborador = t.id_colaborador AND numero = ?";
         Colaborador colab = null;
         try (Connection connection = BancoDeDados.getConnection()) {
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
@@ -120,10 +121,10 @@ public class ColaboradorDAO implements iColaboradorDAO {
             ResultSet rsColab = preparedStatement.executeQuery();
             while (rsColab.next()) {
                 colab = new Colaborador();
-                colab.setId(rsColab.getInt("id"));
+                colab.setId(rsColab.getInt("id_colaborador"));
                 colab.setNome(rsColab.getString("nome"));
                 colab.setSobrenome(rsColab.getString("sobrenome"));
-                colab.setTel(rsColab.getString("tel"));
+                colab.setTel(rsColab.getString("numero"));
                 colab.setEmail(rsColab.getString("email"));
                 colab.setCargo(rsColab.getString("cargo"));
                 colab.setDataintegracao(rsColab.getDate("dataintegracao").toLocalDate());
@@ -135,18 +136,19 @@ public class ColaboradorDAO implements iColaboradorDAO {
         return Optional.ofNullable(colab);
     }
     @Override
-    public Optional<Colaborador> findByEmail(String email) {
+    public Optional<Colaborador> findByEmail(String email) { //FUNCIONANDO
         Colaborador colab = null;
         try (Connection connection = BancoDeDados.getConnection()) {
-            String sql = "SELECT * FROM colaborador WHERE email = ?";
+            String sql = "SELECT c.*, t.numero FROM colaborador c, tel_colaborador t WHERE c.id_colaborador = t.id_colaborador AND email = ?";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, email);
             ResultSet rsColab = preparedStatement.executeQuery();
             while (rsColab.next()) {
                 colab = new Colaborador();
-                colab.setId(rsColab.getInt("id"));
+                colab.setId(rsColab.getInt("id_colaborador"));
                 colab.setNome(rsColab.getString("nome"));
                 colab.setSobrenome(rsColab.getString("sobrenome"));
+                colab.setTel(rsColab.getString("numero"));
                 colab.setEmail(rsColab.getString("email"));
                 colab.setCargo(rsColab.getString("cargo"));
                 colab.setDataintegracao(rsColab.getDate("dataintegracao").toLocalDate());
@@ -160,7 +162,7 @@ public class ColaboradorDAO implements iColaboradorDAO {
 
     public List<Colaborador> findByName(String nome) { //FUNCIONANDO
         List<Colaborador> colaboradores = new ArrayList<>();
-        String sql = "SELECT c.*, t.numero FROM colaborador c, tel_colaborador t WHERE nome = ?";
+        String sql = "SELECT c.*, t.numero FROM colaborador c, tel_colaborador t WHERE c.id_colaborador = t.id_colaborador AND nome = ?";
         try (Connection connection = BancoDeDados.getConnection()) {
             assert connection != null;
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
@@ -188,7 +190,7 @@ public class ColaboradorDAO implements iColaboradorDAO {
     @Override
     public List<Colaborador> findAll() { //FUNCIONANDO
         List<Colaborador> colaboradores = new ArrayList<>();
-        String sql = "SELECT c.*, t.numero FROM colaborador c, tel_colaborador t";
+        String sql = "SELECT c.*, t.numero FROM colaborador c, tel_colaborador t WHERE c.id_colaborador = t.id_colaborador";
         try (Connection connection = BancoDeDados.getConnection()) {
             assert connection != null;
             PreparedStatement preparedStatement = connection.prepareStatement(sql);

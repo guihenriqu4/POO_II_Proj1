@@ -157,7 +157,7 @@ public class Aplicacao {
 
         // Teste de findByName (COLABORADOR)
 //        ColaboradorDAO colaboradorDAO = new ColaboradorDAO();
-//        String nome = "Guilherme";
+//        String nome = "Alexandra";
 //        List<Colaborador> colaboradores = colaboradorDAO.findByName(nome);
 //
 //        for (Colaborador c : colaboradores) {
@@ -213,21 +213,27 @@ public class Aplicacao {
 //        Optional<Cliente> cliente0 = clienteDAO.findById(id0);
 //        cliente0.ifPresentOrElse(Cliente::printCliente, () -> System.out.println("Cliente não encontrado pelo ID: "+ id0));
 //
-//        int id1 = 99;
-//        Optional<Cliente> cliente1 = clienteDAO.findById(id1);
-//        cliente1.ifPresentOrElse(Cliente::printCliente, () -> System.out.println("Cliente não encontrado pelo ID: "+ id1));
+//        ColaboradorDAO colaboradorDAO = new ColaboradorDAO();
+//        int id1 = 2;
+//        Optional<Colaborador> colaborador = colaboradorDAO.findById(id1);
+//        colaborador.ifPresentOrElse(Colaborador::printColaborador, () -> System.out.println("Colaborador não encontrado pelo ID: "+ id1));
 
 //        ClienteDAO clienteDAO = new ClienteDAO();
 //        String tel1 = "62966773344"; //Não existe no banco
 //        Optional<Cliente> cliente1 = clienteDAO.findByTel(tel1);
 //        cliente1.ifPresentOrElse(Cliente::printCliente, () -> System.out.println("Cliente não encontrado pelo Telefone: "+ tel1));
 //
-//        String tel2 = "62984687959"; //Existe no banco
-//        Optional<Cliente> cliente2 = clienteDAO.findByTel(tel2);
-//        cliente2.ifPresentOrElse(Cliente::printCliente, () -> System.out.println("Cliente não encontrado pelo Telefone: "+ tel2));
+//        ColaboradorDAO colaboradorDAO = new ColaboradorDAO();
+//        String tel2 = "62948295032"; //Existe no banco
+//        Optional<Colaborador> colaborador2 = colaboradorDAO.findByTel(tel2);
+//        colaborador2.ifPresentOrElse(Colaborador::printColaborador, () -> System.out.println("Cliente não encontrado pelo Telefone: "+ tel2));
 //
-//        String email4 = "pedro@email.com";
-//        Optional<Colaborador> colab4 = colabDAO.findByEmail(email4);
+//        String email4 = "pedro@email.com"; //Email não existe no banco
+//        Optional<Colaborador> colab4 = colaboradorDAO.findByEmail(email4);
+//        colab4.ifPresentOrElse(Colaborador::printColaborador, () -> System.out.println("Colaborador não encontrado pelo email: "+ email4));
+
+//        String email4 = "alexandra@gmail.com"; //Email existe no banco
+//        Optional<Colaborador> colab4 = colaboradorDAO.findByEmail(email4);
 //        colab4.ifPresentOrElse(Colaborador::printColaborador, () -> System.out.println("Colaborador não encontrado pelo email: "+ email4));
 //
 //        String email5 = "pessoainexistente@email.com"; //Não existe no banco
