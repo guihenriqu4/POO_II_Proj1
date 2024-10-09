@@ -15,15 +15,15 @@ import java.util.Optional;
 public class Aplicacao {
     public static void main(String[] args) {
 //         Teste de save -- INSERT (CLIENTE)
-//        ClienteDAO clienteDAO = new ClienteDAO();
-//        Cliente cliente = new Cliente();
-//        cliente.setNome("Guilherme");
-//        cliente.setSobrenome("Souza");
-//        cliente.setTel("62984687959");
-//        cliente.setSenha("guilherme123");
-//        cliente.setDataintegracao(java.time.LocalDate.now());
-//        Cliente inserido =  clienteDAO.save(cliente);
-//        inserido.printCliente();
+//       ClienteDAO clienteDAO = new ClienteDAO();
+//       Cliente cliente = new Cliente();
+//       cliente.setNome("Guilherme");
+//       cliente.setSobrenome("Souza");
+//       cliente.setTel("62984687959");
+//       cliente.setSenha("guilherme123");
+//       cliente.setDataintegracao(java.time.LocalDate.now());
+//       Cliente inserido =  clienteDAO.save(cliente);
+//       inserido.printCliente();
 
 //          Teste de save -- INSERT (PRODUTO)
 //        ProdutoDAO produtoDAO = new ProdutoDAO();
