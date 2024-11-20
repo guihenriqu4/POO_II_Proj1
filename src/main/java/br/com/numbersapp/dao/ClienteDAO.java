@@ -2,11 +2,13 @@ package br.com.numbersapp.dao;
 
 import br.com.numbersapp.infra.BancoDeDados;
 import br.com.numbersapp.model.Cliente;
+import br.com.numbersapp.model.Pessoa;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-public class ClienteDAO implements iClienteDAO{
+public class ClienteDAO implements iPessoaDAO<Cliente> {
     @Override
     public Cliente save(Cliente cliente) { //FUNCIONANDO
         try(Connection connection = BancoDeDados.getConnection()){
@@ -62,7 +64,7 @@ public class ClienteDAO implements iClienteDAO{
     }
 
     @Override
-    public void deleteCliente(int id) { //FUNCIONANDO
+    public void delete(int id) { //FUNCIONANDO
         try(Connection connection = BancoDeDados.getConnection()) {
             String sql = "DELETE FROM tel_cliente WHERE id_cliente = ?";
             PreparedStatement psCliente = connection.prepareStatement(sql);

@@ -6,7 +6,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-public class ColaboradorDAO implements iColaboradorDAO {
+public class ColaboradorDAO implements iPessoaDAO<Colaborador> {
     @Override
     public Colaborador save(Colaborador colaborador) { //FUNCIONANDO
         try(Connection connection = BancoDeDados.getConnection()){
@@ -64,7 +64,7 @@ public class ColaboradorDAO implements iColaboradorDAO {
         return colaborador;
     }
     @Override
-    public void deleteColaborador(int id) { //FUNCIONANDO
+    public void delete(int id) { //FUNCIONANDO
         try(Connection connection = BancoDeDados.getConnection()) {
             String sql = "DELETE FROM tel_colaborador WHERE id_colaborador = ?";
             PreparedStatement psCliente = connection.prepareStatement(sql);
@@ -135,7 +135,7 @@ public class ColaboradorDAO implements iColaboradorDAO {
         }
         return Optional.ofNullable(colab);
     }
-    @Override
+
     public Optional<Colaborador> findByEmail(String email) { //FUNCIONANDO
         Colaborador colab = null;
         try (Connection connection = BancoDeDados.getConnection()) {
